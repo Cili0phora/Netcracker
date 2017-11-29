@@ -1,5 +1,7 @@
 package Repository;
 
+import Repository.Checker.AgePersonChecker;
+import Repository.Checker.IPersonChecker;
 import Repository.Comparator.IPersonComparator;
 import Repository.Sorts.ISort;
 
@@ -10,15 +12,16 @@ import java.util.Scanner;
 public class PersonsRepository {
     private Person[] persons;
     private int size;
+    private final int dLangth = 5;
     //private ISort sorter = Cobfigurator.getInstnce().getSorter();
 
     public int getSize() {
         return size;
     }
 
-    public PersonsRepository() {
-        persons = new Person[0];
-        size = 0;
+    public PersonsRepository(int size) {
+        persons = new Person[size];
+        this.size = 0;
     }
     PersonsRepository(Person[] persons) {
         this.persons = persons;
@@ -36,8 +39,8 @@ public class PersonsRepository {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Person p : persons) {
-            sb.append(p.toString()).append("\n");
+        for (int i = 0; i<size; i++) {
+            sb.append(persons[i].toString()).append("\n");
         }
         sb.append("size: ").append(size);
         return sb.toString();
@@ -55,9 +58,11 @@ public class PersonsRepository {
     }
 
     public boolean add(Person aPerson) {
-        if (getIndex(aPerson.getId()) <= 0) {
-            persons = Arrays.copyOf(persons, persons.length + 1);
-            persons[persons.length - 1] = aPerson;
+        if (getIndex(aPerson.getId()) < 0) {
+            if (size > persons.length - 1) {
+                persons = Arrays.copyOf(persons, persons.length + dLangth);
+            }
+            persons[size] = aPerson;
             size++;
             return true;
         }
@@ -79,7 +84,6 @@ public class PersonsRepository {
             for (i++; i <= size - 1; i++) {
                 persons[i + 1] = persons[i];
             }
-            persons = Arrays.copyOf(persons, persons.length - 1);
             size--;
             return result;
         }
@@ -88,5 +92,18 @@ public class PersonsRepository {
 
     public void sort(IPersonComparator comp, ISort srt) {
         srt.sort(this, comp);
+    }
+
+    private PersonsRepository search(IPersonChecker checker, Object value) {
+        PersonsRepository result = new PersonsRepository(size);
+        for (int i = 0; i<size; i++) {
+            if (checker.check(persons[i], value))
+                result.add(persons[i]);
+        }
+        return result;
+    }
+
+    public PersonsRepository searchBуAge(int age) {
+        return search(new AgePersonChecker(),age);
     }
 }

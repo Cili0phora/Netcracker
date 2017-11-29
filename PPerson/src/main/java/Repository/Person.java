@@ -22,6 +22,7 @@ public class Person {
         StringBuilder sb = new StringBuilder();
         sb.append("surname: ").append(surname).append('\n');
         sb.append("birthday: ").append(birthday).append('\n');
+        sb.append("age: ").append(getAge()).append('\n');
         sb.append("id: ").append(id).append('\n');
         return sb.toString();
     }
