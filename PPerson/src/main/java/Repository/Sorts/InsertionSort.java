@@ -1,13 +1,14 @@
 package Repository.Sorts;
 
-import Repository.Comparator.IPersonComparator;
 import Repository.Person;
 import Repository.PersonsRepository;
+
+import java.util.Comparator;
 
 public class InsertionSort implements ISort{
 
     @Override
-    public void sort(PersonsRepository rep, IPersonComparator comp) {
+    public void sort(PersonsRepository rep, Comparator<Person> comp) {
         int j;
         Person temp;
         for (int i = 0; i<rep.getSize()-1; i++) {

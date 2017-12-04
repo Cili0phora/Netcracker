@@ -11,12 +11,10 @@
         <module>PPerson</module>
     </modules>
     <packaging>pom</packaging>
-    <modules>
-        <module>PPerson</module>
-    </modules>
     <properties>
         <java.version>1.8</java.version>
         <joda-version>2.4</joda-version>
+        <junit-version>5.0.0</junit-version>
     </properties>
 
     <build>
@@ -41,7 +39,12 @@
                 <artifactId>joda-time</artifactId>
                 <version>${joda-version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit-version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -1,8 +1,10 @@
 package Repository.Sorts;
 
-import Repository.Comparator.IPersonComparator;
+import Repository.Person;
 import Repository.PersonsRepository;
 
+import java.util.Comparator;
+
 public interface ISort {
-    void sort(PersonsRepository rep, IPersonComparator comp);
+    void sort(PersonsRepository rep, Comparator<Person> comp);
 }

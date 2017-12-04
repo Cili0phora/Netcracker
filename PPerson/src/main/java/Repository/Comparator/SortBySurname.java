@@ -2,7 +2,9 @@ package Repository.Comparator;
 
 import Repository.Person;
 
-public class SortBySurname implements IPersonComparator {
+import java.util.Comparator;
+
+public class SortBySurname implements Comparator<Person> {
 
     @Override
     public int compare(Person p1, Person p2) {

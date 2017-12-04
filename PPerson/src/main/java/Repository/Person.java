@@ -1,11 +1,8 @@
 package Repository;
 
-import Repository.Comparator.IPersonComparator;
-
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+import java.util.Comparator;
 import java.util.UUID;
 
 public class Person {
@@ -25,15 +22,6 @@ public class Person {
         sb.append("age: ").append(getAge()).append('\n');
         sb.append("id: ").append(id).append('\n');
         return sb.toString();
-    }
-    public static Person read() throws DateTimeParseException{
-        Scanner in = new Scanner(System.in);
-        Person aPerson = new Person();
-        System.out.print("surname: ");
-        aPerson.setSurname(in.nextLine());
-        System.out.print("birthday: ");
-        aPerson.setBirthday(LocalDate.parse(in.nextLine()));
-        return aPerson;
     }
 
     public Person(String surname, LocalDate birthday) {
@@ -72,7 +60,7 @@ public class Person {
         return Period.between(birthday,  LocalDate.now()).getYears();
     }
 
-    public int compareTo(Person p2, IPersonComparator pc) {
+    public int compareTo(Person p2, Comparator<Person> pc) {
         return pc.compare(this, p2);
     }
 }

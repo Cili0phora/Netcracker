@@ -19,8 +19,8 @@ public class Main {
         ps.add(new Person("mr. Blue", LocalDate.of(1982, 5, 30 )));
 
         ps.sort(new SortByAge(),new InsertionSort());
-        PersonsRepository pss = ps.searchBуAge(36);
-        System.out.println(pss.toString());
+
+        System.out.println(ps.toString());
 
 
     }
