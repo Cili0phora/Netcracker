@@ -6,7 +6,6 @@ import Repository.PersonsRepository;
 import java.util.Comparator;
 
 public class InsertionSort implements ISort{
-
     @Override
     public void sort(PersonsRepository rep, Comparator<Person> comp) {
         int j;

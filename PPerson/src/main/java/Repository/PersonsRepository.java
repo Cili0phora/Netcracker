@@ -7,31 +7,57 @@ import Repository.Sorts.ISort;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * Class, describing array of persons
+ */
 public class PersonsRepository {
+    /**
+     * Array of persons
+     */
     private Person[] persons;
+    /**
+     * Actual size of array
+     */
     private int size;
-    private final int dLangth = 5;
+    /**
+     * How many empty elements program adds in array if it full
+     */
+    private final int DLENGTH = 5;
+
     //private ISort sorter = Cobfigurator.getInstnce().getSorter();
 
+    /**
+     * Get actual size of array
+     * @return Size of array
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Constructor creates empty repository with setting size
+     * @param size
+     */
     public PersonsRepository(int size) {
         persons = new Person[size];
         this.size = 0;
     }
-    PersonsRepository(Person[] persons) {
+
+    /**
+     * Contructor, creating repository for setting persons array
+     * @param persons
+     */
+    public PersonsRepository(Person[] persons) {
         this.persons = persons;
-        size = persons.length-1;
+        size = persons.length;
     }
 
+    /**
+     * Get array of Person
+     * @return array of Person
+     */
     public Person[] getPersons() {
         return persons;
-    }
-
-    public void setPersons(Person[] persons) {
-        this.persons = persons;
     }
 
     @Override
@@ -44,10 +70,15 @@ public class PersonsRepository {
         return sb.toString();
     }
 
+    /**
+     * Add person into array of Persons
+     * @param aPerson new person
+     * @return true, if adding successful
+     */
     public boolean add(Person aPerson) {
         if (getIndex(aPerson.getId()) < 0) {
             if (size > persons.length - 1) {
-                persons = Arrays.copyOf(persons, persons.length + dLangth);
+                persons = Arrays.copyOf(persons, persons.length + DLENGTH);
             }
             persons[size] = aPerson;
             size++;
@@ -56,6 +87,11 @@ public class PersonsRepository {
         return false;
     }
 
+    /**
+     * Get person's index in array
+     * @param id person's ID
+     * @return index or -1 if person not found
+     */
     public int getIndex(String id) {
         for (int index = 0; index<size; index++) {
             if (persons[index].getId().equals(id))
@@ -64,12 +100,17 @@ public class PersonsRepository {
         return -1;
     }
 
+    /**
+     * Remove person from array
+     * @param id person's ID
+     * @return deleted person or null, if person not found
+     */
     public Person remove(String  id) {
         int i = getIndex(id);
         if (i >= 0) {
             Person result = persons[i];
-            for (i++; i <= size - 1; i++) {
-                persons[i + 1] = persons[i];
+            for (i++; i < size-1; i++) {
+                persons[i] = persons[i + 1];
             }
             size--;
             return result;
@@ -77,6 +118,11 @@ public class PersonsRepository {
         return null;
     }
 
+    /**
+     * Sort array of Person's
+     * @param comp comparator, what shows what field will be used to compare
+     * @param srt sorting algorithm
+     */
     public void sort(Comparator<Person> comp, ISort srt) {
         srt.sort(this,  comp);
     }
@@ -90,6 +136,11 @@ public class PersonsRepository {
         return result;
     }
 
+    /**
+     * Find all person's with setting age
+     * @param age
+     * @return repository of result persons
+     */
     public PersonsRepository searchBуAge(int age) {
         return search(new AgePersonChecker(),age);
     }
