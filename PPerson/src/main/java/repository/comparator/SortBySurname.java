@@ -1,6 +1,6 @@
-package Repository.Comparator;
+package repository.comparator;
 
-import Repository.Person;
+import repository.Person;
 
 import java.util.Comparator;
 

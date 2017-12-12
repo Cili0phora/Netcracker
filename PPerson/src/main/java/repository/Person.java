@@ -1,10 +1,9 @@
-package Repository;
+package repository;
 
-import Repository.RepositoryExceptions.EmptySurnameException;
-import Repository.RepositoryExceptions.IlligalBirthDateException;
+import repository.repositoryExceptions.EmptySurnameException;
+import repository.repositoryExceptions.IlligalBirthDateException;
 
-import java.time.LocalDate;
-import java.time.Period;
+import org.joda.time.*;
 import java.util.Comparator;
 import java.util.UUID;
 /**
@@ -109,10 +108,10 @@ public class Person {
 
     /**
      * Calculate person's age
-     * @return
+     * @return age
      */
     public int getAge () {
-        return Period.between(birthday,  LocalDate.now()).getYears();
+        return Years.yearsBetween(birthday, new LocalDate()).getYears();
     }
 
     /**

@@ -1,8 +1,8 @@
-package Repository.Checker;
+package repository.checker;
 
-import Repository.Person;
+import repository.Person;
 
-public class AgePersonChecker implements IPersonChecker {
+public class AgePersonChecker implements Checker<Person> {
     @Override
     public boolean check(Person p1, Object value) {
         return p1.getAge() == (int)value;

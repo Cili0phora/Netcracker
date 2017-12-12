@@ -1,4 +1,4 @@
-package Repository.RepositoryExceptions;
+package repository.repositoryExceptions;
 
 /**
  * Exception throws if you try create person with empty surname

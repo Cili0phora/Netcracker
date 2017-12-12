@@ -1,16 +1,16 @@
-package Repository.Checker;
+package repository.checker;
 
-import Repository.Person;
+import repository.Person;
 
 /**
  * interface to check equality between person and object
  */
-public interface IPersonChecker {
+public interface Checker<T> {
     /**
      *
      * @param p1
      * @param value
      * @return
      */
-    boolean check (Person p1, Object value);
+    boolean check (T p1, Object value);
 }

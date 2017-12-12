@@ -1,7 +1,7 @@
-package Repository.Sorts;
+package repository.sorts;
 
-import Repository.Person;
-import Repository.PersonsRepository;
+import repository.Person;
+import repository.PersonsRepository;
 
 import java.util.Comparator;
 

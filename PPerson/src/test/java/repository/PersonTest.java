@@ -1,16 +1,18 @@
-package Repository;
+package repository;
 
-import Repository.RepositoryExceptions.EmptySurnameException;
-import Repository.RepositoryExceptions.IlligalBirthDateException;
+import repository.comparator.SortByBirthDate;
+import repository.comparator.SortBySurname;
+import repository.repositoryExceptions.EmptySurnameException;
+import repository.repositoryExceptions.IlligalBirthDateException;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import org.joda.time.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonTest {
     //arrange of test person
-    private final Person PERSON_TEST = new Person("mr. Black", LocalDate.of(1997,11,11));
+    private final Person PERSON_TEST = new Person("mr. Black", new LocalDate(1997,11,11));
 
     @Test
     void setSurname() throws EmptySurnameException {
@@ -32,7 +34,7 @@ class PersonTest {
     @Test
     void setBirthday() throws IlligalBirthDateException {
         //arrange
-        LocalDate newBirthday =  LocalDate.of(1998,11,11);
+        LocalDate newBirthday = new LocalDate(1998,11,11);
         //act
         PERSON_TEST.setBirthday(newBirthday);
         //assert
@@ -49,12 +51,6 @@ class PersonTest {
             //assert
             assertEquals(ex.getMessage(), new IlligalBirthDateException(newBirthday).getMessage() );
         }
-    }
-
-
-    @Test
-    void compareTo() {
-
     }
 
 }

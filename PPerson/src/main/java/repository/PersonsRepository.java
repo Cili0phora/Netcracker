@@ -1,8 +1,10 @@
-package Repository;
+package repository;
 
-import Repository.Checker.AgePersonChecker;
-import Repository.Checker.IPersonChecker;
-import Repository.Sorts.ISort;
+import repository.checker.AgePersonChecker;
+import repository.checker.BirthDatePersinChecker;
+import repository.checker.Checker;
+import repository.sorts.BubbleSort;
+import repository.sorts.ISort;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -24,7 +26,8 @@ public class PersonsRepository {
      */
     private final int DLENGTH = 5;
 
-    //private ISort sorter = Cobfigurator.getInstnce().getSorter();
+    //private ISort sorter = Configurator.getInstance().getSorter();
+    private ISort sorter = new BubbleSort();
 
     /**
      * Get actual size of array
@@ -92,7 +95,7 @@ public class PersonsRepository {
      * @param id person's ID
      * @return index or -1 if person not found
      */
-    public int getIndex(String id) {
+    private int getIndex(String id) {
         for (int index = 0; index<size; index++) {
             if (persons[index].getId().equals(id))
                 return index;
@@ -121,13 +124,12 @@ public class PersonsRepository {
     /**
      * Sort array of Person's
      * @param comp comparator, what shows what field will be used to compare
-     * @param srt sorting algorithm
      */
-    public void sort(Comparator<Person> comp, ISort srt) {
-        srt.sort(this,  comp);
+    public void sort(Comparator<Person> comp) {
+        sorter.sort(this,  comp);
     }
 
-    private PersonsRepository search(IPersonChecker checker, Object value) {
+    private PersonsRepository search(Checker checker, Object value) {
         PersonsRepository result = new PersonsRepository(size);
         for (int i = 0; i<size; i++) {
             if (checker.check(persons[i], value))
@@ -142,6 +144,14 @@ public class PersonsRepository {
      * @return repository of result persons
      */
     public PersonsRepository searchBуAge(int age) {
+        return search(new AgePersonChecker(),age);
+    }
+
+    public PersonsRepository searchBуBirthDate(int age) {
+        return search(new BirthDatePersinChecker(),age);
+    }
+
+    public PersonsRepository searchBуSurname(int age) {
         return search(new AgePersonChecker(),age);
     }
 }
