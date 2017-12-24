@@ -10,26 +10,22 @@ import java.util.Properties;
 public class Configurator {
     private static Configurator instance = new Configurator();
     public ISort getSorter() {
-        Properties properties=new Properties();
-        FileInputStream fls = null;
-        ISort result = new BubbleSort(); //default
-        try {
-            fls = new FileInputStream("D:/Универ/3 курс/infotekh/repositoryProject/src/main/resources/Config.properties");
+        Properties properties = new Properties();
+        try(FileInputStream fls = new FileInputStream("D:/Универ/3 курс/infotekh/repositoryProject/Config.properties")) {
+
             properties.load(fls);
 
             String property = properties.getProperty("sorter");
             switch (property) {
                 case "bubble":
-                    result = new BubbleSort();
+                    return  new BubbleSort();
                 case "insertion":
-                    result = new InsertionSort();
+                    return  new InsertionSort();
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            //fls.close();
-            return result;
         }
+        return new InsertionSort();
     }
 
 

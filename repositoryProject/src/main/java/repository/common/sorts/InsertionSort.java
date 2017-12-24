@@ -1,6 +1,6 @@
 package repository.common.sorts;
 
-import repository.common.AbstractRepository;
+import repository.common.repositoryes.AbstractRepository;
 import repository.common.ISort;
 
 import java.util.Comparator;

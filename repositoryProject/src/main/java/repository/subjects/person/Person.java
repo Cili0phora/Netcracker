@@ -1,8 +1,5 @@
 package repository.subjects.person;
 
-import repository.subjects.person.personExceptions.EmptySurnameException;
-import repository.subjects.person.personExceptions.IlligalBirthDateException;
-
 import org.joda.time.*;
 import java.util.Comparator;
 import java.util.UUID;
@@ -60,11 +57,8 @@ public class Person {
     /**
      * Set person's surname
      * @param surname New surname
-     * @throws EmptySurnameException If new surname is empty throws exception
      */
-    public void setSurname(String surname) throws EmptySurnameException {
-        if (surname.isEmpty())
-            throw new EmptySurnameException();
+    public void setSurname(String surname){
         this.surname = surname;
     }
 
@@ -79,12 +73,8 @@ public class Person {
     /**
      * Set birthday birth date
      * @param birthday New birth date
-     * @throws IlligalBirthDateException
      */
-    public void setBirthday(LocalDate birthday) throws IlligalBirthDateException {
-        if (birthday.compareTo(LocalDate.now()) > 0) {
-            throw new IlligalBirthDateException(birthday);
-        }
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

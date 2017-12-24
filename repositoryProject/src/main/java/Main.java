@@ -1,4 +1,8 @@
 //package main.java;
+import repository.CarRepository;
+import repository.subjects.car.Car;
+import repository.subjects.car.carComparator.SortByBrand;
+import repository.subjects.car.carComparator.SortBySerialNumber;
 import repository.subjects.person.Person;
 import repository.PersonsRepository;
 
@@ -8,41 +12,21 @@ import repository.subjects.person.personComparator.SortByBirthDate;
 import java.io.IOException;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
-//        Person[] ar = {
-//                new Person("mr. Orange", new LocalDate(1981,8,24)),
-//                new Person("mr. White", new LocalDate(1981, 5, 1 )),
-//                new Person("mr. Pink", new LocalDate(1985, 3, 18 )),
-//                new Person("mr. Brown", new LocalDate(1980, 2, 1 )),
-//                new Person("mr. Blonde", new LocalDate(1990, 11, 11 )),
-//                new Person("mr. Blue", new LocalDate(1982, 5, 30 ))
-//        };
-//        for(int i = 0; i<ar.length; i++) {
-//            System.out.println(ar[i].toString());
-//        }
-//        PersonsRepository result = new PersonsRepository(6);
-//        result.add(new Person("mr. Blonde", new LocalDate(1990, 11, 11 )));
-//        result.add(new Person("mr. Pink", new LocalDate(1985, 3, 18 )));
-//        result.add(new Person("mr. Blue", new LocalDate(1982, 5, 30 )));
-//        result.add(new Person("mr. Orange", new LocalDate(1981,8,24)));
-//        result.add(new Person("mr. White", new LocalDate(1981, 5, 1 )));
-//        result.add(new Person("mr. Brown", new LocalDate(1980, 2, 1 )));
+    //arrange of test repository
+        Car[] ar= {
+            new Car("BMV", "E102CH102"),
+            new Car("Ford", "A200CH36"),
+            new Car("Hyundai", "B360GH36"),
+            new Car("Audi", "C123CH188"),
+            new Car("BMV", "E231KT102"),
+            new Car("Honda", "M200CH102")
+        };
 
-        PersonsRepository ps = new PersonsRepository(5);
-        ps.add(new Person("mr. Orange", new LocalDate(1981,8,24)));
-        ps.add(new Person("mr. White", new LocalDate(1981, 5, 1 )));
-        ps.add(new Person("mr. Pink", new LocalDate(1985, 3, 18 )));
-        ps.add(new Person("mr. Brown", new LocalDate(1980, 2, 1 )));
-        ps.add(new Person("mr. Blonde", new LocalDate(1990, 11, 11 )));
-        ps.add(new Person("mr. Blue", new LocalDate(1982, 5, 30 )));
-        System.out.println(ps.toString());
-        ps.sort(new SortByBirthDate());
-        for (Person p : ps) {
-            p.toString();
-        }
-
-        //System.out.println(ps.toString());
-
+        CarRepository rep = new CarRepository(ar);
+        rep.sort(new SortBySerialNumber());
+        System.out.println(rep.toString());
 
     }
 }

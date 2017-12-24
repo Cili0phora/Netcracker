@@ -8,8 +8,8 @@ public class Car {
     private String serialNumber;
     private String id;
 
-    public Car(String mark, String model, String serialNumber) {
-        this.brand = model;
+    public Car(String brand, String serialNumber) {
+        this.brand = brand;
         this.serialNumber = serialNumber;
         id = UUID.randomUUID().toString();
     }
@@ -36,5 +36,14 @@ public class Car {
 
     public  int compareTo(Car c2, Comparator<Car> comp) {
         return comp.compare(this, c2);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("brand: ").append(brand).append('\n');
+        sb.append("serial number: ").append(serialNumber).append('\n');
+        sb.append("id: ").append(id).append('\n');
+        return sb.toString();
     }
 }

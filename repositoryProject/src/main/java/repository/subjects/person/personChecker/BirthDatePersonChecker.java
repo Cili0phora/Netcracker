@@ -3,7 +3,7 @@ package repository.subjects.person.personChecker;
 import repository.subjects.person.Person;
 import repository.common.Checker;
 
-import java.time.LocalDate;
+import org.joda.time.*;
 
 public class BirthDatePersonChecker implements Checker<Person> {
     @Override

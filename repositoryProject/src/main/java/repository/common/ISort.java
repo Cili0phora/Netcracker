@@ -1,5 +1,7 @@
 package repository.common;
 
+import repository.common.repositoryes.AbstractRepository;
+
 import java.util.Comparator;
 
 /**

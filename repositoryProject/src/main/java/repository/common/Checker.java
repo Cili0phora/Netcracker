@@ -5,7 +5,7 @@ package repository.common;
  */
 public interface Checker<T> {
     /**
-     *
+     * Logic defines equality of values
      * @param p1
      * @param value
      * @return

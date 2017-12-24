@@ -1,34 +1,79 @@
-package repository.common;
+package repository.common.repositoryes;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import repository.common.sorts.InsertionSort;
-import repository.subjects.person.Person;
+import repository.common.Checker;
+import repository.common.Configurator;
+import repository.common.ISort;
 
+/**
+ * Realisation of general repository logic
+ * @param <T> type of repository item
+ */
 public abstract class AbstractRepository<T> implements Repository<T> {
+    /**
+     * Array for cars storage
+     */
     protected Object[] rep;
+    /**
+     * Actual size of repository
+     */
     protected int size;
-    private final int DLENGTH = 5;
+    /**
+     * Full repository extention
+     */
+    protected final int DLENGTH = 5;
     //private ISort sorter = new InsertionSort();
     private ISort sorter = Configurator.getInstance().getSorter();
 
+    /**
+     * Getter for array of values
+     * @return array of values
+     */
     public Object[] getRep() {
         return rep;
     }
 
+    /**
+     * Setter for array of values
+     * @param rep new array of values
+     */
     public void setRep(Object[] rep) {
         this.rep = rep;
     }
 
+    /**
+     * Getter for repository size
+     * @return repository size
+     */
     public int getSize() {
         return size;
     }
-    protected abstract AbstractRepository<T> search(Checker<T> checker, Object value);
 
+    /**
+     * Search
+     * @param checker
+     * @param value
+     * @return
+     */
+    @Override
+    public Repository<T> search(Checker<T> checker, Object value) {
+        Repository result = getRepositoryInstance(size);
+        for (int i = 0; i<getSize(); i++) {
+            if (checker.check(get(i), value))
+                result.add(get(i));
+        }
+        return result;
+    }
+
+    /**
+     * Adding value into repository
+     * @param value value to add
+     * @return true, if adding successful and false if adding unsuccessful
+     */
     @Override
     public boolean add(T value) {
         if (getIndex(value) == -1) {
@@ -42,6 +87,11 @@ public abstract class AbstractRepository<T> implements Repository<T> {
         return false;
     }
 
+    /**
+     * Removes value from repository
+     * @param index index of removing value
+     * @return removing value
+     */
     @Override
     public T remove(int index) {
         if (index == -1) {
@@ -55,11 +105,20 @@ public abstract class AbstractRepository<T> implements Repository<T> {
         return null;
     }
 
+    /**
+     * Sorting repository
+     * @param comp compare logic
+     */
     @Override
     public void sort(Comparator<T> comp) {
         sorter.sort(this,  comp);
     }
 
+    /**
+     * Get index of setting value
+     * @param value setting value
+     * @return index
+     */
     public int getIndex(T value) {
         if (size!= 0) {
             for (int index = 0; index < size; index++) {
@@ -72,14 +131,24 @@ public abstract class AbstractRepository<T> implements Repository<T> {
     }
 
     @Override
+    public T get(int index) {
+        if (index < 0 && index >= size) {
+            return null;
+        }
+        return (T)rep[index];
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i<getSize(); i++) {
-            sb.append(getRep()[i].toString()).append("\n");
+            sb.append(get(i).toString()).append("\n");
         }
         sb.append("size: ").append(getSize());
         return sb.toString();
     }
+
+    protected abstract Repository<T> getRepositoryInstance(int size);
 
     @Override
     public Iterator<T> iterator() {

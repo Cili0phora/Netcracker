@@ -1,35 +1,50 @@
 package repository;
 
-import repository.common.AbstractRepository;
+import repository.common.repositoryes.AbstractRepository;
 import repository.common.Checker;
+import repository.common.repositoryes.Repository;
 import repository.subjects.car.Car;
 import repository.subjects.car.carChecker.BrandCarChecker;
 import repository.subjects.car.carChecker.SerialNumberCarChecker;
 
 public class CarRepository extends AbstractRepository<Car>{
+    /**
+     * Constructor, creating empty repository with setting size
+     * @param size setting size
+     */
     public CarRepository(int size) {
-        setRep(new Car[size]);
+        this.rep = new Car[size];
+        this.size = 0;
     }
 
+    /**
+     * Contructor, creating repository for setting car array
+     * @param cars setting array
+     */
     public CarRepository(Car[] cars) {
-        setRep(cars);
+        this.rep = cars;
+        this.size = cars.length;
     }
-    @Override
-    protected CarRepository search(Checker<Car> checker, Object value) {
-        CarRepository result = new CarRepository(getSize());
-        for (int i = 0; i<getSize(); i++) {
-            if (checker.check((Car)getRep()[i], value))
-                result.add((Car)getRep()[i]);
-        }
-        return result;
-    }
-
+    /**
+     * Find all car's with setting brand
+     * @param brand setting brand
+     * @return repository of result persons
+     */
     public CarRepository searchByBrand(String brand) {
         return (CarRepository)search(new BrandCarChecker(), brand);
     }
 
-    public CarRepository searchBySerialNumber(String brand) {
-        return (CarRepository)search(new SerialNumberCarChecker(), brand);
+    /**
+     * Find all car's with setting serialNumber
+     * @param serialNumber setting serialNumber
+     * @return
+     */
+    public CarRepository searchBySerialNumber(String serialNumber) {
+        return (CarRepository)search(new SerialNumberCarChecker(), serialNumber);
     }
 
+    @Override
+    protected Repository<Car> getRepositoryInstance(int size) {
+        return new CarRepository(size);
+    }
 }

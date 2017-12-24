@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="PPerson" />
+        <module name="repositoryProject" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="infotekh" target="1.8" />
       <module name="PPerson" target="1.8" />
+      <module name="repositoryProject" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -48,9 +48,14 @@ class PersonsRepositoryTest {
 
     @Test
     void addToEmptyRepository() {
+        //arrange
         PersonsRepository pr = new PersonsRepository(1);
         Person aPerson = new Person("mr. Black", new LocalDate(1997, 8,8));
+
+        //act
         pr.add(aPerson);
+
+        //assert
         assertEquals(aPerson, pr.getRep()[0]);
     }
     @Test
@@ -74,15 +79,43 @@ class PersonsRepositoryTest {
     @Test
     void searchBуAge() {
         //arrange
-        PersonsRepository expected = new PersonsRepository(2);
-        expected.add((Person)REP_TEST.getRep()[0]);
-        expected.add((Person)REP_TEST.getRep()[1]);
+        PersonsRepository expected = new PersonsRepository(6);
+        expected.add(REP_TEST.get(0));
+        expected.add(REP_TEST.get(1));
 
         //act
         PersonsRepository actual = REP_TEST.searchBуAge(36);
 
         //assert
-        assertEquals(actual, expected);
+        assertArrayEquals(actual.getRep(), expected.getRep());
+    }
+
+
+    @Test
+    void searchBуBirthDate() {
+        //arrange
+        PersonsRepository expected = new PersonsRepository(6);
+        expected.add(REP_TEST.get(0));
+        LocalDate date = new LocalDate(1981,8,24);
+
+        //act
+        PersonsRepository actual = REP_TEST.searchBуBirthDate(date);
+
+        //assert
+        assertArrayEquals(expected.getRep(), actual.getRep());
+    }
+
+    @Test
+    void searchBуSurname() {
+        //arrange
+        PersonsRepository expected = new PersonsRepository(6);
+        expected.add(REP_TEST.get(1));
+
+        //act
+        PersonsRepository actual = REP_TEST.searchBуSurname("mr. White");
+
+        //assert
+        assertArrayEquals(expected.getRep(), actual.getRep());
     }
 
     @Test
@@ -96,7 +129,7 @@ class PersonsRepositoryTest {
         boolean OK = true;
         int i = 0;
         while (OK && i<REP_TEST.getSize()) {
-            OK = ((Person)REP_TEST.getRep()[i]).getAge() == (res[i]);
+            OK = REP_TEST.get(i).getAge() == (res[i]);
             i++;
         }
         assertTrue(OK);
@@ -120,7 +153,7 @@ class PersonsRepositoryTest {
         boolean OK = true;
         int i = 0;
         while (OK && i<REP_TEST.getSize()) {
-            OK = ((Person)REP_TEST.getRep()[i]).getSurname().compareTo(res[i]) == 0;
+            OK = REP_TEST.get(i).getSurname().compareTo(res[i]) == 0;
             i++;
         }
         assertTrue(OK);
@@ -144,7 +177,7 @@ class PersonsRepositoryTest {
         boolean OK = true;
         int i = 0;
         while (OK && i<REP_TEST.getSize()) {
-            OK = ((Person)REP_TEST.getRep()[i]).getBirthday().compareTo(res[i]) == 0;
+            OK = REP_TEST.get(i).getBirthday().compareTo(res[i]) == 0;
             i++;
         }
         assertTrue(OK);
